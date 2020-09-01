@@ -6,3 +6,5 @@ index.html: This contains the HTML and some CSS styling rules from Assembly.css 
 app.js: This contains the code for the template.
 
 style.css: This file has additional styling rules for the application.
+
+Links: https://labs.mapbox.com/education/impact-tools/finder-with-filters/
