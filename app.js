@@ -1,4 +1,4 @@
-mapboxgl.accessToken = config.accessToken;
+mapboxgl.accessToken = config.pk.eyJ1IjoianVsaWFzb2JjemFrIiwiYSI6ImNrY2RtOXpkZDAwenUycG54eXlsYTFmcXkifQ.3hLkp5zWDu7IvZG_zsaKJQ;
 const columnHeaders = config.sideBarInfo;
 
 let geojsonData = {};
