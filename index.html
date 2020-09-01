@@ -138,49 +138,6 @@
     </div>
 		<div id='map' class='map'></div>
 
-<script>
-     mapboxgl.accessToken = 'pk.eyJ1IjoianVsaWFzb2JjemFrIiwiYSI6ImNrY2RtOXpkZDAwenUycG54eXlsYTFmcXkifQ.3hLkp5zWDu7IvZG_zsaKJQ';
-      /**
-       * Add the map to the page
-      */
-      var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/juliasobczak/ckdkd0g5r112i1imqc8zo7165',
-        center: [-98.556257, 39.808489],
-        zoom: 3.5,
-        scrollZoom: true
-      });
-
-      /**add team locations**/
-      var teams = {
-   "type": "FeatureCollection",
-   "features": [
-  {
-    "type": "Feature",
-    "geometry": {
-       "type": "Point",
-       "coordinates":  [-95.42010000, 29.79950009]
-    },
-    "properties": {
-      "Name":"Houston Action Team ",
-      "Facebook Group":"https://donate.sfmfoodbank.org/page/5009/donate/1",
-      "Email":"https://www.sfmfoodbank.org/volunteer/"
-    }
-  }]
-      };
-      geojson.features.array.forEach(function(marker){
-        var el = document.createElement('div');
-        el.className = 'marker';
-
-        new mapboxgl.marker(el)
-        .setLngLat(marker.geometry.coordinates)
-        .addTo(map);
-      });
-
-  
-
-
-</script>
   </body>
 </html>
 
