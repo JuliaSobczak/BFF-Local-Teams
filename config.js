@@ -6,45 +6,9 @@ const config = {
     center: [-99.140625,
         39.90973623453719], //Lng, Lat
     zoom: 3, //Default zoom
-    title: "Replace with your title",
-    description: "Replace with information about your application. Ex. You can search by address to sort the list below by distance. You can also filter the list by language support options, which days a location is open, and whether they have devices to use to complete the survey by phone or online.",
-    sideBarInfo: ["Name", "Facebook Group"],
-    popupInfo: ["Name"],
-    filters: [
-        {
-            type: "dropdown",
-            title: "Title of filter: ",
-            columnHeader: "Column Name",
-            listItems: [
-                'filter one',
-                'filter two',
-                'filter three',
-                'filter four',
-                'filter five',
-                'filter six',
-                'filter seven'
-            ]
-        },
-        {
-            type: "checkbox",
-            title: "Title of filter: ",
-            columnHeader: "Column Name",
-            listItems: ["filter one", "filter two", "filter three"]
-        },
-        {
-            type: "dropdown",
-            title: "Title of filter: ",
-            columnHeader: "Column Name",
-            listItems: [
-                'filter one',
-                'filter two',
-                'filter three',
-                'filter four',
-                'filter five',
-                'filter six',
-                'filter seven'
-            ]
-        }
-    ]
+    title: "2025 Local Action Teams",
+    description: "Contact your Local Action Team for more information on how to volunteer with Best Friends",
+    sideBarInfo: ["First_Name", "Last_Name" "Contact"],
+    popupInfo: ["Name"]
 
 };
