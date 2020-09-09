@@ -2,70 +2,366 @@
 <html>
 
 <head>
-    <title> Best Friends Local Action Teams 2025</title>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link href='https://api.mapbox.com/mapbox-assembly/v0.24.0/assembly.min.css' rel='stylesheet'>
-    <script src='https://api.mapbox.com/mapbox-assembly/v0.24.0/assembly.js'></script>
-    <script src="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css" rel="stylesheet" />
-    <script
-        src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.min.js'></script>
-    <link rel='stylesheet'
-        href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.css'
-        type='text/css' />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/geojson/0.5.0/geojson.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css" rel="stylesheet" />
     <script src='https://npmcdn.com/csv2geojson@latest/csv2geojson.js'></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <link rel='stylesheet' href="style.css" />
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+    <style>
+        body {
+            color: #404040;
+            font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin: 0;
+            font-weight: 400;
+            line-height: 20px;
+            padding: 20px 2px;
+        }
+
+        a {
+            color: #404040;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #101010;
+        }
+
+        .sidebar {
+            position: absolute;
+            width: 33.3333%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            border-right: 1px solid rgba(0, 0, 0, 0.25);
+        }
+
+        .pad2 {
+            padding: 20px;
+        }
+
+        .map {
+            position: absolute;
+            left: 33.3333%;
+            width: 66.6666%;
+            top: 0;
+            bottom: 0;
+        }
+
+        .heading {
+            background: #fff;
+            background-color: #F1823B;
+            border-bottom: 1px solid #eee;
+            height: 60px;
+            line-height: 60px;
+            padding: 0 10px;
+        }
+
+        .listings {
+            height: 100%;
+            overflow: auto;
+            padding-bottom: 60px;
+        }
+
+        .listings .item {
+            display: block;
+            border-bottom: 1px solid #eee;
+            padding: 10px;
+            text-decoration: none;
+        }
+
+        .listings .item:last-child {
+            border-bottom: none;
+        }
+
+        .listings .item .title {
+            display: block;
+            color: #F1823B;
+            font-weight: 700;
+        }
+
+        .listings .item .title small {
+            font-weight: 400;
+        }
+
+        .listings .item.active .title,
+        .listings .item .title:hover {
+            color: blue;
+        }
+
+        .listings .item.active {
+            background-color: #f8f8f8;
+        }
+
+        ::-webkit-scrollbar {
+            width: 3px;
+            height: 3px;
+            border-left: 0;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        ::-webkit-scrollbar-track {
+            background: none;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #00853e;
+            border-radius: 0;
+        }
+
+        .clearfix {
+            display: block;
+        }
+
+        .clearfix::after {
+            content: '.';
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+
+        /* Marker tweaks */
+        .mapboxgl-popup-close-button {
+            display: none;
+        }
+
+        .mapboxgl-popup-content {
+            font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+            padding: 0;
+            width: 180px;
+        }
+
+        .mapboxgl-popup-content-wrapper {
+            padding: 1%;
+        }
+
+        .mapboxgl-popup-content h3 {
+            background: #91c949;
+            color: #fff;
+            margin: 0;
+            display: block;
+            padding: 10px;
+            border-radius: 3px 3px 0 0;
+            font-weight: 700;
+            margin-top: -15px;
+        }
+
+        .mapboxgl-popup-content h4 {
+            margin: 0;
+            display: block;
+            padding: 10px;
+            font-weight: 400;
+        }
+
+        .mapboxgl-popup-content div {
+            padding: 10px;
+        }
+
+        .mapboxgl-container .leaflet-marker-icon {
+            cursor: pointer;
+        }
+
+        .mapboxgl-popup-anchor-top>.mapboxgl-popup-content {
+            margin-top: 15px;
+        }
+
+        .mapboxgl-popup-anchor-top>.mapboxgl-popup-tip {
+            border-bottom-color: #91c949;
+        }
+    </style>
 </head>
 
 <body>
-    <div class='flex-parent viewport-full relative scroll-hidden'>
-        <div class='flex-child w-full w360-ml absolute static-ml left bottom'>
-            <div class='flex-parent flex-parent--column viewport-third bg-white'>
-                <div class='flex-child flex-child--grow'>
-                    <div id="sidebarA"
-                        class="flex-parent flex-parent--column-ml flex-parent--center-main theme py12 px12 ">
-                        <h3 id='title' class='txt-l-ml txt-m txt-bold mb6 mr0-ml mr24 align-center block'>
-                        </h3>
-                        <p id='description' class='txt-s py12 none block-ml'>
-                        </p>
-                        <div class="flex-parent flex-parent--center-main relative-ml absolute right top mt0-ml mt6">
-                            <button id='filterResults' class='txt-bold btn btn--stroke mr0-ml mr12 px18-ml px6'>
-                                <svg class='icon inline-block align-middle h24 w24'>
-                                    <use xlink:href='#icon-filter' /></svg>
-                                <p class="inline-block-ml align-middle remove none">Show Filters</p>
-                            </button>
-                        </div>
-
-
-                    </div>
-                    <div id="listings" class="flex-child viewport-full py12 px12 listings scroll-auto"></div>
-
-                </div>
-            </div>
+    <div class='sidebar'>
+        <div class='heading'>
+            <h1>Best Friends Action Teams</h1>
         </div>
-        <div class='flex-child flex-child--grow w-auto viewport-full-ml viewport-twothirds' id='map'>
-
-        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
+        <div id='listings' class='listings'></div>
     </div>
+    <div id='map' class='map'></div>
+    <script>
 
-    </div>
+        var transformRequest = (url, resourceType) => {
+            var isMapboxRequest =
+                url.slice(8, 22) === "api.mapbox.com" ||
+                url.slice(10, 26) === "tiles.mapbox.com";
+            return {
+                url: isMapboxRequest
+                    ? url.replace("?", "?pluginName=sheetMapper&")
+                    : url
+            };
+        };
+        //YOUR TURN: add your Mapbox token 
+        mapboxgl.accessToken = 'pk.eyJ1IjoianVsaWFzb2JjemFrIiwiYSI6ImNrY2RtOXpkZDAwenUycG54eXlsYTFmcXkifQ.3hLkp5zWDu7IvZG_zsaKJQ'; //Mapbox token 
+        var map = new mapboxgl.Map({
+            container: 'map', // container id
+            style: 'mapbox://styles/juliasobczak/ckd6fa77o03js1ik1s7upamu4', //stylesheet location
+            center: [-99.140625,
+                39.90973623453719], // starting position
+            zoom: 2,// starting zoom
+            transformRequest: transformRequest
+        });
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                //YOUR TURN: Replace with csv export link
+                url: 'https://docs.google.com/spreadsheets/d/1CA49QC4xgZH6A8WnRbCMggisY4M-MbkM8tFwckQo9kw/gviz/tq?tqx=out:csv&sheet=Pawprints',
+                dataType: "text",
+                success: function (csvData) { makeGeoJSON(csvData); }
+            });
+
+
+
+            function makeGeoJSON(csvData) {
+                csv2geojson.csv2geojson(csvData, {
+                    latfield: 'Latitude',
+                    lonfield: 'Longitude',
+                    delimiter: ','
+                }, function (err, data) {
+                    map.on('load', function () {
+
+                        //Add the the layer to the map 
+                        map.addLayer({
+                            'id': 'csvData',
+                            'type': 'circle',
+                            'source': {
+                                'type': 'geojson',
+                                'data': data
+                            },
+                            'paint': {
+                                'circle-radius': 5,
+                                'circle-color': "purple"
+                            }
+                        });
+
+
+                        buildLocationList(data);
+
+
+                        function flyToLocation(currentFeature) {
+                            map.flyTo({
+                                center: currentFeature,
+                                zoom: 15
+                            });
+                        }
+
+                        function createPopup(currentFeature) {
+                            const popups = document.getElementsByClassName("mapboxgl-popup");
+                            /** Check if there is already a popup on the map and if so, remove it */
+                            if (popups[0]) popups[0].remove();
+                            const popup = new mapboxgl.Popup({ closeOnClick: true })
+                                .setLngLat(currentFeature.geometry.coordinates)
+                                .setHTML("<h3>" + currentFeature.properties.City + "</h3>")
+                                .addTo(map);
+                        }
+
+                        /**
+                         * Add a listing for each store to the sidebar.
+                        **/
+                        function buildLocationList(data) {
+                            data.features.forEach(function (location, i) {
+                                /**
+                                 * Create a shortcut for `store.properties`,
+                                 * which will be used several times below.
+                                **/
+                                var prop = location.properties;
+
+                                /* Add a new listing section to the sidebar. */
+                                var listings = document.getElementById('listings');
+                                var listing = listings.appendChild(document.createElement('div'));
+                                /* Assign a unique `id` to the listing. */
+                                listing.id = "listing-" + prop.id;
+                                /* Assign the `item` class to each listing for styling. */
+                                listing.className = 'item';
+
+                                /* Add the link to the individual listing created above. */
+                                var link = listing.appendChild(document.createElement('a'));
+                                link.href = '#';
+                                link.className = 'title';
+                                link.id = "link-" + prop.Notes;
+                                link.innerHTML = prop.City;
+
+                                /* Add details to the individual listing. */
+                                var details = listing.appendChild(document.createElement('div'));
+                                details.innerHTML = prop.city;
+                                if (prop.phone) {
+                                    details.innerHTML += ' · ' + prop.phoneFormatted;
+                                }
+
+
+                                link.addEventListener('click', function (e) {
+                                    for (var i = 0; i < data.features.length; i++) {
+                                        if (this.id === "link-" + data.features[i].properties.id) {
+                                            var clickedListing = data.features[i];
+                                            flyToStore(clickedListing);
+                                            createPopUp(clickedListing);
+                                        }
+                                    }
+                                    var activeItem = document.getElementsByClassName('active');
+                                    if (activeItem[0]) {
+                                        activeItem[0].classList.remove('active');
+                                    }
+                                    this.parentNode.classList.add('active');
+                                });
+
+                                link.addEventListener('click', function (e) {
+                                    const clickedListing = location.geometry.coordinates;
+                                    flyToLocation(clickedListing, 11);
+                                    createPopup(location);;
+
+                                    var activeItem = document.getElementsByClassName('active');
+                                    if (activeItem[0]) {
+                                        activeItem[0].classList.remove('active');
+                                    }
+                                    this.parentNode.classList.add('active');
+                                });
+                            });
+                        }
+
+
+
+                        function createPopUp(currentFeature) {
+                            var popUps = document.getElementsByClassName('mapboxgl-popup');
+                            /** Check if there is already a popup on the map and if so, remove it */
+                            if (popUps[0]) popUps[0].remove();
+
+                            var popup = new mapboxgl.Popup({ closeOnClick: false })
+                                .setLngLat(currentFeature.geometry.coordinates)
+                                .setHTML('<h3>Sweetgreen</h3>' +
+                                    '<h4>' + currentFeature.properties.address + '</h4>')
+                                .addTo(map);
+                        }
+
+
+                    });
+
+                });
+            };
+        });
+
+
+
+
+    </script>
+
 </body>
-
-<script>
-
-</script>
-<script src="config.js"></script>
-<script src="app.js"></script>
 
 </html>
