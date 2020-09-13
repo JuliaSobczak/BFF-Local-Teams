@@ -28,13 +28,13 @@
         h1 {
             font-size: 22px;
             margin: 0;
-            font-weight: 400;
+            font-weight: 600;
             line-height: 20px;
             padding: 20px 2px;
         }
 
         a {
-            color: #404040;
+            color: #adadad;
             text-decoration: none;
         }
 
@@ -102,7 +102,7 @@
 
         .listings .item.active .title,
         .listings .item .title:hover {
-            color: blue;
+            color: light blue;
         }
 
         .listings .item.active {
@@ -121,7 +121,7 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #00853e;
+            background: #404040;
             border-radius: 0;
         }
 
@@ -153,7 +153,7 @@
         }
 
         .mapboxgl-popup-content h3 {
-            background: #91c949;
+            background: #f58220;
             color: #fff;
             margin: 0;
             display: block;
@@ -183,7 +183,7 @@
         }
 
         .mapboxgl-popup-anchor-top>.mapboxgl-popup-tip {
-            border-bottom-color: #91c949;
+            border-bottom-color: #f58220;
         }
     </style>
 </head>
@@ -191,7 +191,7 @@
 <body>
     <div class='sidebar'>
         <div class='heading'>
-            <h1>Best Friends Action Teams</h1>
+            <h1>Best Friends Local Action Teams</h1>
         </div>
         <div id='listings' class='listings'></div>
     </div>
@@ -215,7 +215,7 @@
             style: 'mapbox://styles/juliasobczak/ckd6fa77o03js1ik1s7upamu4', //stylesheet location
             center: [-99.140625,
                 39.90973623453719], // starting position
-            zoom: 2,// starting zoom
+            zoom: 3,// starting zoom
             transformRequest: transformRequest
         });
 
@@ -248,7 +248,7 @@
                             },
                             'paint': {
                                 'circle-radius': 5,
-                                'circle-color': "purple"
+                                'circle-color': #f58220
                             }
                         });
 
@@ -259,7 +259,7 @@
                         function flyToLocation(currentFeature) {
                             map.flyTo({
                                 center: currentFeature,
-                                zoom: 15
+                                zoom: 8
                             });
                         }
 
@@ -269,7 +269,7 @@
                             if (popups[0]) popups[0].remove();
                             const popup = new mapboxgl.Popup({ closeOnClick: true })
                                 .setLngLat(currentFeature.geometry.coordinates)
-                                .setHTML("<h3>" + currentFeature.properties.City + "</h3>")
+                                .setHTML("<h3>" + Team_Name.Primary_Email + "</h3>")
                                 .addTo(map);
                         }
 
