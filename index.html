@@ -102,7 +102,7 @@
 
         .listings .item.active .title,
         .listings .item .title:hover {
-            color: light blue;
+            color: #f8f8f8;
         }
 
         .listings .item.active {
@@ -269,7 +269,7 @@
                             if (popups[0]) popups[0].remove();
                             const popup = new mapboxgl.Popup({ closeOnClick: true })
                                 .setLngLat(currentFeature.geometry.coordinates)
-                                .setHTML("<h3>" + Team_Name.Primary_Email + "</h3>")
+                                .setHTML("<h3>" + Team_Name + "</h3>")
                                 .addTo(map);
                         }
 
@@ -344,8 +344,8 @@
                             if (popUps[0]) popUps[0].remove();
 
                             var popup = new mapboxgl.Popup({ closeOnClick: false })
-                                .setLngLat(currentFeature.geometry.coordinates)
-                                .setHTML('<h3>Contact Information</h3>' +
+                                .setLngLat(Latitude.Longitude)
+                                .setHTML('<h3>Team_Name</h3>' +
                                     '<h4>' + Team_Name.Primary_Email + '</h4>')
                                 .addTo(map);
                         }
