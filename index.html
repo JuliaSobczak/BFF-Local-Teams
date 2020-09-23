@@ -1,3 +1,39 @@
+Skip to content
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@JuliaSobczak 
+Learn Git and GitHub without any code!
+Using the Hello World guide, you’ll start a branch, write comments, and open a pull request.
+
+
+JuliaSobczak
+/
+BFF-Local-Teams
+2
+01
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+BFF-Local-Teams/index.html
+@JuliaSobczak
+JuliaSobczak Update index.html
+Latest commit 29cb6de 18 minutes ago
+ History
+ 2 contributors
+@JuliaSobczak@mjdanielson
+361 lines (303 sloc)  12.1 KB
+  
 <!DOCTYPE html>
 <html>
 
@@ -34,12 +70,12 @@
         }
 
         a {
-            color: #ffffff;
+            color: #404040;
             text-decoration: none;
         }
 
         a:hover {
-            color: #404040;
+            color: #101010;
         }
 
         .sidebar {
@@ -102,7 +138,7 @@
 
         .listings .item.active .title,
         .listings .item .title:hover {
-            color: #404040;
+            color: blue;
         }
 
         .listings .item.active {
@@ -121,7 +157,7 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #ffffff;
+            background: #00853e;
             border-radius: 0;
         }
 
@@ -191,7 +227,7 @@
 <body>
     <div class='sidebar'>
         <div class='heading'>
-            <h1>Grassroots Action Teams</h1>
+            <h1>Best Friends Action Teams</h1>
         </div>
         <div id='listings' class='listings'></div>
     </div>
@@ -263,6 +299,17 @@
                             });
                         }
 
+                        function createPopup(currentFeature) {
+                            const popups = document.getElementsByClassName("mapboxgl-popup");
+                            /** Check if there is already a popup on the map and if so, remove it */
+                            if (popups[0]) popups[0].remove();
+                            const popup = new mapboxgl.Popup({ closeOnClick: true })
+                                .setLngLat(currentFeature.geometry.coordinates)
+                                .setHTML("<h3>" + currentFeature.properties.TeamName + "</h3>"+
+            '<h4>'+ currentFeature.properties.City + currentFeature.properties.ST +'</h4>'))
+                                .addTo(map);
+                        }
+
                         /**
                          * Add a listing for each store to the sidebar.
                         **/
@@ -322,17 +369,6 @@
                                         activeItem[0].classList.remove('active');
                                     }
                                     this.parentNode.classList.add('active');
-                                    
-                                     function createPopup(currentFeature) {
-                            const popups = document.getElementsByClassName("mapboxgl-popup");
-                            /** Check if there is already a popup on the map and if so, remove it */
-                            if (popups[0]) popups[0].remove();
-                            const popup = new mapboxgl.Popup({ closeOnClick: true })
-                                .setLngLat(currentFeature.geometry.coordinates)
-                                .setHTML("<h3>" + currentFeature.properties.TeamName + "</h3>"+
-            '<h4>'+ currentFeature.properties.City + currentFeature.properties.ST +'</h4>'))
-                                .addTo(map);
-                        }
                                 });
                             });
                         }
