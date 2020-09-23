@@ -153,7 +153,7 @@
         }
 
         .mapboxgl-popup-content h3 {
-            background: #91c949;
+            background: #f58220;
             color: #fff;
             margin: 0;
             display: block;
@@ -183,7 +183,7 @@
         }
 
         .mapboxgl-popup-anchor-top>.mapboxgl-popup-tip {
-            border-bottom-color: #91c949;
+            border-bottom-color: #f58220;
         }
     </style>
 </head>
@@ -215,7 +215,7 @@
             style: 'mapbox://styles/juliasobczak/ckd6fa77o03js1ik1s7upamu4', //stylesheet location
             center: [-99.140625,
                 39.90973623453719], // starting position
-            zoom: 2,// starting zoom
+            zoom: 3,// starting zoom
             transformRequest: transformRequest
         });
 
@@ -259,7 +259,7 @@
                         function flyToLocation(currentFeature) {
                             map.flyTo({
                                 center: currentFeature,
-                                zoom: 15
+                                zoom: 10
                             });
                         }
 
@@ -269,7 +269,7 @@
                             if (popups[0]) popups[0].remove();
                             const popup = new mapboxgl.Popup({ closeOnClick: true })
                                 .setLngLat(currentFeature.geometry.coordinates)
-                                .setHTML("<h3>" + currentFeature.properties.City + "</h3>")
+                                .setHTML("<h3>" + TeamName + "</h3>")
                                 .addTo(map);
                         }
 
