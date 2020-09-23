@@ -269,7 +269,8 @@
                             if (popups[0]) popups[0].remove();
                             const popup = new mapboxgl.Popup({ closeOnClick: true })
                                 .setLngLat(currentFeature.geometry.coordinates)
-                                .setHTML("<h3>" + TeamName + "</h3>")
+                                .setHTML("<h3>" + currentFeature.properties.TeamName + "</h3>"+
+            '<h4>'+ currentFeature.properties.City + currentFeature.properties.ST +'</h4>'))
                                 .addTo(map);
                         }
 
@@ -297,14 +298,14 @@
                                 link.href = '#';
                                 link.className = 'title';
                                 link.id = "link-" + prop.Notes;
-                                link.innerHTML = prop.City;
+                                link.innerHTML = prop.TeamName;
 
                                 /* Add details to the individual listing. */
                                 var details = listing.appendChild(document.createElement('div'));
                                 details.innerHTML = prop.city;
-                                if (prop.phone) {
-                                    details.innerHTML += ' · ' + prop.phoneFormatted;
-                                }
+                                if (prop.PrimaryEmail) {
+                                details.innerHTML += prop.PrimaryEmail;
+                        }
 
 
                                 link.addEventListener('click', function (e) {
@@ -335,21 +336,14 @@
                                 });
                             });
                         }
-
-
-
-                        function createPopUp(currentFeature) {
-                            var popUps = document.getElementsByClassName('mapboxgl-popup');
-                            /** Check if there is already a popup on the map and if so, remove it */
-                            if (popUps[0]) popUps[0].remove();
-
-                            var popup = new mapboxgl.Popup({ closeOnClick: false })
-                                .setLngLat(currentFeature.geometry.coordinates)
-                                .setHTML('<h3>Sweetgreen</h3>' +
-                                    '<h4>' + currentFeature.properties.address + '</h4>')
-                                .addTo(map);
-                        }
-
+// This will let you use the .remove() function later on
+        if (!('remove' in Element.prototype)) {
+          Element.prototype.remove = function() {
+            if (this.parentNode) {
+                this.parentNode.removeChild(this);
+            }
+          };
+        }
 
                     });
 
