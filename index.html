@@ -34,12 +34,12 @@
         }
 
         a {
-            color: #404040;
+            color: #ffffff;
             text-decoration: none;
         }
 
         a:hover {
-            color: #101010;
+            color: #404040;
         }
 
         .sidebar {
@@ -102,7 +102,7 @@
 
         .listings .item.active .title,
         .listings .item .title:hover {
-            color: blue;
+            color: #404040;
         }
 
         .listings .item.active {
@@ -121,7 +121,7 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #00853e;
+            background: #ffffff;
             border-radius: 0;
         }
 
@@ -191,7 +191,7 @@
 <body>
     <div class='sidebar'>
         <div class='heading'>
-            <h1>Best Friends Action Teams</h1>
+            <h1>Grassroots Action Teams</h1>
         </div>
         <div id='listings' class='listings'></div>
     </div>
@@ -263,17 +263,6 @@
                             });
                         }
 
-                        function createPopup(currentFeature) {
-                            const popups = document.getElementsByClassName("mapboxgl-popup");
-                            /** Check if there is already a popup on the map and if so, remove it */
-                            if (popups[0]) popups[0].remove();
-                            const popup = new mapboxgl.Popup({ closeOnClick: true })
-                                .setLngLat(currentFeature.geometry.coordinates)
-                                .setHTML("<h3>" + currentFeature.properties.TeamName + "</h3>"+
-            '<h4>'+ currentFeature.properties.City + currentFeature.properties.ST +'</h4>'))
-                                .addTo(map);
-                        }
-
                         /**
                          * Add a listing for each store to the sidebar.
                         **/
@@ -333,6 +322,17 @@
                                         activeItem[0].classList.remove('active');
                                     }
                                     this.parentNode.classList.add('active');
+                                    
+                                     function createPopup(currentFeature) {
+                            const popups = document.getElementsByClassName("mapboxgl-popup");
+                            /** Check if there is already a popup on the map and if so, remove it */
+                            if (popups[0]) popups[0].remove();
+                            const popup = new mapboxgl.Popup({ closeOnClick: true })
+                                .setLngLat(currentFeature.geometry.coordinates)
+                                .setHTML("<h3>" + currentFeature.properties.TeamName + "</h3>"+
+            '<h4>'+ currentFeature.properties.City + currentFeature.properties.ST +'</h4>'))
+                                .addTo(map);
+                        }
                                 });
                             });
                         }
