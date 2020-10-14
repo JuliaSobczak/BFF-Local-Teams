@@ -102,7 +102,7 @@
 
         .listings .item.active .title,
         .listings .item .title:hover {
-            color: blue;
+            color: gray;
         }
 
         .listings .item.active {
@@ -247,8 +247,8 @@
                                 'data': data
                             },
                             'paint': {
-                                'circle-radius': 5,
-                                'circle-color': "purple"
+                                'circle-radius': 7,
+                                'circle-color': "white"
                             }
                         });
 
@@ -259,7 +259,7 @@
                         function flyToLocation(currentFeature) {
                             map.flyTo({
                                 center: currentFeature,
-                                zoom: 15
+                                zoom: 7
                             });
                         }
 
@@ -296,12 +296,12 @@
                                 var link = listing.appendChild(document.createElement('a'));
                                 link.href = '#';
                                 link.className = 'title';
-                                link.id = "link-" + prop.Notes;
+                                link.id = "link-" + prop.Name;
                                 link.innerHTML = prop.City;
 
                                 /* Add details to the individual listing. */
                                 var details = listing.appendChild(document.createElement('div'));
-                                details.innerHTML = prop.city;
+                                details.innerHTML = prop.Name;
                                 if (prop.phone) {
                                     details.innerHTML += ' · ' + prop.phoneFormatted;
                                 }
@@ -324,7 +324,7 @@
 
                                 link.addEventListener('click', function (e) {
                                     const clickedListing = location.geometry.coordinates;
-                                    flyToLocation(clickedListing, 11);
+                                    flyToLocation(clickedListing, 7);
                                     createPopup(location);;
 
                                     var activeItem = document.getElementsByClassName('active');
