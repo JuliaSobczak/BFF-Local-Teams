@@ -4,7 +4,7 @@
 
 <head>
     <meta charset='utf-8' />
-    <title></title>
+    <title>Grassroots Locator</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
@@ -197,8 +197,8 @@
         <div id='listings' class='listings'></div>
     </div>
     <div id='map' class='map'></div>
+    
     <script>
-
         var transformRequest = (url, resourceType) => {
             var isMapboxRequest =
                 url.slice(8, 22) === "api.mapbox.com" ||
@@ -226,9 +226,9 @@
                 //YOUR TURN: Replace with csv export link
                 url: 'https://docs.google.com/spreadsheets/d/1CA49QC4xgZH6A8WnRbCMggisY4M-MbkM8tFwckQo9kw/gviz/tq?tqx=out:csv&sheet=Pawprints',
                 dataType: "text",
-                success: function (csvData) { makeGeoJSON(csvData); }
+                success: function (csvData) {makeGeoJSON(csvData);}
             });
-
+ });
 
 
             function makeGeoJSON(csvData) {
@@ -250,9 +250,11 @@
                             'paint': {
                                 'circle-radius': 5,
                                 'circle-color': "orange"
-                            }
+                            };
                         });
-
+                    };
+                };
+            };
 
                         buildLocationList(data);
 
