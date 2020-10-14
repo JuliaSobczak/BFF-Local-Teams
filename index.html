@@ -102,7 +102,7 @@
 
         .listings .item.active .title,
         .listings .item .title:hover {
-            color: gray;
+            color: blue;
         }
 
         .listings .item.active {
@@ -223,7 +223,7 @@
             $.ajax({
                 type: "GET",
                 //YOUR TURN: Replace with csv export link
-                url: 'https://docs.google.com/spreadsheets/d/1wJtHsBoDY2DMr-rX0jqQzZlSOvj1a55xH8aCksW04Ig/gviz/tq?tqx=out:csv&sheet=Sheet1',
+                url: 'https://docs.google.com/spreadsheets/d/1CA49QC4xgZH6A8WnRbCMggisY4M-MbkM8tFwckQo9kw/gviz/tq?tqx=out:csv&sheet=Pawprints',
                 dataType: "text",
                 success: function (csvData) { makeGeoJSON(csvData); }
             });
@@ -247,8 +247,8 @@
                                 'data': data
                             },
                             'paint': {
-                                'circle-radius': 7,
-                                'circle-color': #808080
+                                'circle-radius': 5,
+                                'circle-color': "purple"
                             }
                         });
 
@@ -259,7 +259,7 @@
                         function flyToLocation(currentFeature) {
                             map.flyTo({
                                 center: currentFeature,
-                                zoom: 7
+                                zoom: 15
                             });
                         }
 
@@ -269,7 +269,7 @@
                             if (popups[0]) popups[0].remove();
                             const popup = new mapboxgl.Popup({ closeOnClick: true })
                                 .setLngLat(currentFeature.geometry.coordinates)
-                                .setHTML("<h3>" + currentFeature.properties.Name + "</h3>")
+                                .setHTML("<h3>" + currentFeature.properties.City + "</h3>")
                                 .addTo(map);
                         }
 
@@ -296,12 +296,12 @@
                                 var link = listing.appendChild(document.createElement('a'));
                                 link.href = '#';
                                 link.className = 'title';
-                                link.id = "link-" + prop.Name;
+                                link.id = "link-" + prop.Notes;
                                 link.innerHTML = prop.City;
 
                                 /* Add details to the individual listing. */
                                 var details = listing.appendChild(document.createElement('div'));
-                                details.innerHTML = prop.Name;
+                                details.innerHTML = prop.city;
                                 if (prop.phone) {
                                     details.innerHTML += ' · ' + prop.phoneFormatted;
                                 }
@@ -324,7 +324,7 @@
 
                                 link.addEventListener('click', function (e) {
                                     const clickedListing = location.geometry.coordinates;
-                                    flyToLocation(clickedListing, 7);
+                                    flyToLocation(clickedListing, 11);
                                     createPopup(location);;
 
                                     var activeItem = document.getElementsByClassName('active');
@@ -335,7 +335,6 @@
                                 });
                             });
                         }
-
 
                     });
 
