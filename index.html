@@ -220,37 +220,7 @@
             transformRequest: transformRequest
         });
         
-         $(document).ready(function () {
-            $.ajax({
-                type: "GET",
-                //YOUR TURN: Replace with csv export link
-                url: 'https://docs.google.com/spreadsheets/d/1wJtHsBoDY2DMr-rX0jqQzZlSOvj1a55xH8aCksW04Ig/gviz/tq?tqx=out:csv&sheet=Sheet1',
-                dataType: "text",
-                success: function (csvData) {makeGeoJSON(csvData);}
-            });
-         });
-        
-        function makeGeoJSON(csvData) {
-        csv2geojson.csv2geojson(csvData, {
-          latfield: 'Latitude',
-          lonfield: 'Longitude',
-          delimiter: ','
-        }, function (err, data) {
-          map.on('load', function () {
-              
-              map.addLayer({
-                  'id': 'csvData',
-                  'type': 'circle',
-                  'source': {
-                      'type': 'geojson',
-                      'data': data
-                  },
-                  'paint': {
-                      'circle-radius': 10,
-                      'circle-color': "purple"
-                  }
-              });
-
+   
       
     </script>
     </body>
