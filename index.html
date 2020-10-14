@@ -223,7 +223,7 @@
             $.ajax({
                 type: "GET",
                 //YOUR TURN: Replace with csv export link
-                url: 'https://docs.google.com/spreadsheets/d/1wJtHsBoDY2DMr-rX0jqQzZlSOvj1a55xH8aCksW04Ig/gviz/tq?tqx=out:csv&sheet=Sheet1',
+                url: 'https://docs.google.com/spreadsheets/d/1CA49QC4xgZH6A8WnRbCMggisY4M-MbkM8tFwckQo9kw/gviz/tq?tqx=out:csv&sheet=Pawprints',
                 dataType: "text",
                 success: function (csvData) { makeGeoJSON(csvData); }
             });
@@ -335,6 +335,21 @@
                                 });
                             });
                         }
+
+
+
+                        function createPopUp(currentFeature) {
+                            var popUps = document.getElementsByClassName('mapboxgl-popup');
+                            /** Check if there is already a popup on the map and if so, remove it */
+                            if (popUps[0]) popUps[0].remove();
+
+                            var popup = new mapboxgl.Popup({ closeOnClick: false })
+                                .setLngLat(currentFeature.geometry.coordinates)
+                                .setHTML('<h3>Sweetgreen</h3>' +
+                                    '<h4>' + currentFeature.properties.address + '</h4>')
+                                .addTo(map);
+                        }
+
 
                     });
 
