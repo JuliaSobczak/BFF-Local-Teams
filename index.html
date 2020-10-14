@@ -230,27 +230,26 @@
             });
          });
         
-        csv2geojson.csv2geojson(csvString, {
-            latfield: 'Latitude',
-            lonfield: 'Longitude',
-            delimiter: ','
-        }, function(err, data) {
-        });
-        
-        
-        //Add the the layer to the map 
-        map.addLayer({
-            'id': 'csvData',
-            'type': 'circle',
-            'source': {
-                'type': 'geojson',
-                'data': data
-            },
-            'paint': {
-                'circle-radius': 5,
-                'circle-color': "purple"
-                        }
-                     });
+        function makeGeoJSON(csvData) {
+        csv2geojson.csv2geojson(csvData, {
+          latfield: 'Latitude',
+          lonfield: 'Longitude',
+          delimiter: ','
+        }, function (err, data) {
+          map.on('load', function () {
+              
+              map.addLayer({
+                  'id': 'csvData',
+                  'type': 'circle',
+                  'source': {
+                      'type': 'geojson',
+                      'data': data
+                  },
+                  'paint': {
+                      'circle-radius': 5,
+                      'circle-color': "purple"
+                  }
+              });
 
       
     </script>
