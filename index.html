@@ -215,7 +215,7 @@
             style: 'mapbox://styles/juliasobczak/ckd6fa77o03js1ik1s7upamu4', //stylesheet location
             center: [-99.140625,
                 39.90973623453719], // starting position
-            zoom: 2,// starting zoom
+            zoom: 4,// starting zoom
             transformRequest: transformRequest
         });
 
@@ -259,7 +259,7 @@
                         function flyToLocation(currentFeature) {
                             map.flyTo({
                                 center: currentFeature,
-                                zoom: 15
+                                zoom: 8
                             });
                         }
 
@@ -296,7 +296,7 @@
                                 var link = listing.appendChild(document.createElement('a'));
                                 link.href = '#';
                                 link.className = 'title';
-                                link.id = "link-" + prop.Notes;
+                                link.id = "link-" + prop.FacebookGroup;
                                 link.innerHTML = prop.City;
 
                                 /* Add details to the individual listing. */
