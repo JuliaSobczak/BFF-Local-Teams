@@ -34,7 +34,7 @@
         }
 
         a {
-            color: #ffffff;
+            color: #404040;
             text-decoration: none;
         }
 
@@ -44,7 +44,7 @@
 
         .sidebar {
             position: absolute;
-            width: 20%;
+            width: 33.3333%;
             height: 100%;
             top: 0;
             left: 0;
@@ -58,8 +58,8 @@
 
         .map {
             position: absolute;
-            left: 20%;
-            width: 80%;
+            left: 33.3333%;
+            width: 66.6666%;
             top: 0;
             bottom: 0;
         }
@@ -102,7 +102,7 @@
 
         .listings .item.active .title,
         .listings .item .title:hover {
-            color: #b0b0b0;
+            color: blue;
         }
 
         .listings .item.active {
@@ -138,14 +138,6 @@
         }
 
         /* Marker tweaks */
-        .marker {
-  background-image: url('https://github.com/JuliaSobczak/BFF-Local-Teams/blob/master/paws.png');
-  background-size: cover;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  cursor: pointer;
-}
         .mapboxgl-popup-close-button {
             display: none;
         }
@@ -223,7 +215,7 @@
             style: 'mapbox://styles/juliasobczak/ckd6fa77o03js1ik1s7upamu4', //stylesheet location
             center: [-99.140625,
                 39.90973623453719], // starting position
-            zoom: 4,// starting zoom
+            zoom: 2,// starting zoom
             transformRequest: transformRequest
         });
 
@@ -231,7 +223,7 @@
             $.ajax({
                 type: "GET",
                 //YOUR TURN: Replace with csv export link
-                url: 'https://docs.google.com/spreadsheets/d/1wJtHsBoDY2DMr-rX0jqQzZlSOvj1a55xH8aCksW04Ig/gviz/tq?tqx=out:csv&sheet=Sheet1',
+                url: 'https://docs.google.com/spreadsheets/d/1CA49QC4xgZH6A8WnRbCMggisY4M-MbkM8tFwckQo9kw/gviz/tq?tqx=out:csv&sheet=Pawprints',
                 dataType: "text",
                 success: function (csvData) { makeGeoJSON(csvData); }
             });
@@ -254,28 +246,20 @@
                                 'type': 'geojson',
                                 'data': data
                             },
-                     
+                            'paint': {
+                                'circle-radius': 5,
+                                'circle-color': "purple"
+                            }
                         });
 
-// add markers to map
-geojson.features.forEach(function(marker) {
 
-  // create a HTML element for each feature
-  var el = document.createElement('div');
-  el.className = 'marker';
-
-  // make a marker for each feature and add to the map
-  new mapboxgl.Marker(el)
-    .setLngLat(marker.geometry.coordinates)
-    .addTo(map);
-});
                         buildLocationList(data);
 
 
                         function flyToLocation(currentFeature) {
                             map.flyTo({
                                 center: currentFeature,
-                                zoom: 8
+                                zoom: 15
                             });
                         }
 
@@ -312,7 +296,7 @@ geojson.features.forEach(function(marker) {
                                 var link = listing.appendChild(document.createElement('a'));
                                 link.href = '#';
                                 link.className = 'title';
-                                link.id = "link-" + prop.FacebookGroup;
+                                link.id = "link-" + prop.Notes;
                                 link.innerHTML = prop.City;
 
                                 /* Add details to the individual listing. */
@@ -351,7 +335,10 @@ geojson.features.forEach(function(marker) {
                                 });
                             });
                         }
-      function createPopUp(currentFeature) {
+
+
+
+                        function createPopUp(currentFeature) {
                             var popUps = document.getElementsByClassName('mapboxgl-popup');
                             /** Check if there is already a popup on the map and if so, remove it */
                             if (popUps[0]) popUps[0].remove();
@@ -362,6 +349,7 @@ geojson.features.forEach(function(marker) {
                                     '<h4>' + currentFeature.properties.address + '</h4>')
                                 .addTo(map);
                         }
+
 
                     });
 
