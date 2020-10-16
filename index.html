@@ -138,6 +138,14 @@
         }
 
         /* Marker tweaks */
+        .marker {
+  background-image: url('https://github.com/JuliaSobczak/BFF-Local-Teams/blob/master/marker%20(1).png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
         .mapboxgl-popup-close-button {
             display: none;
         }
@@ -246,13 +254,21 @@
                                 'type': 'geojson',
                                 'data': data
                             },
-                            'paint': {
-                                'circle-radius': 5,
-                                'circle-color': "purple"
-                            }
+                     
                         });
 
+// add markers to map
+geojson.features.forEach(function(marker) {
 
+  // create a HTML element for each feature
+  var el = document.createElement('div');
+  el.className = 'marker';
+
+  // make a marker for each feature and add to the map
+  new mapboxgl.Marker(el)
+    .setLngLat(marker.geometry.coordinates)
+    .addTo(map);
+});
                         buildLocationList(data);
 
 
@@ -337,18 +353,6 @@
                         }
 
 
-
-                        function createPopUp(currentFeature) {
-                            var popUps = document.getElementsByClassName('mapboxgl-popup');
-                            /** Check if there is already a popup on the map and if so, remove it */
-                            if (popUps[0]) popUps[0].remove();
-
-                            var popup = new mapboxgl.Popup({ closeOnClick: false })
-                                .setLngLat(currentFeature.geometry.coordinates)
-                                .setHTML('<h3>Sweetgreen</h3>' +
-                                    '<h4>' + currentFeature.properties.address + '</h4>')
-                                .addTo(map);
-                        }
 
 
                     });
