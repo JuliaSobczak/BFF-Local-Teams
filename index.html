@@ -68,7 +68,7 @@
             background: #fff;
             background-color: #F1823B;
             border-bottom: 1px solid #eee;
-            height: 60px;
+            height: 70px;
             line-height: 60px;
             padding: 0 10px;
         }
@@ -191,7 +191,7 @@
 <body>
     <div class='sidebar'>
         <div class='heading'>
-            <h1> Grassroots Action Teams</h1>
+            <h1>   Grassroots Action Teams</h1>
         </div>
         <div id='listings' class='listings'></div>
     </div>
@@ -301,9 +301,9 @@
 
                                 /* Add details to the individual listing. */
                                 var details = listing.appendChild(document.createElement('div'));
-                                details.innerHTML = prop.City;
-                                if (prop.phone) {
-                                    details.innerHTML += ' · ' + prop.phoneFormatted;
+                                details.innerHTML = prop.Name;
+                                if (prop.FacebookGroup) {
+                                    details.innerHTML += ' Facebook: ' + prop.FacebookGroup;
                                 }
 
 
