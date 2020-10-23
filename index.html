@@ -280,6 +280,11 @@
                                 .addTo(map);
                         }
 
+                        map.on('click', 'csvData', function (e) {
+                            console.log(e.features[0].geometry)
+                            createPopup(e.features[0])
+                        });
+
                         /**
                          * Add a listing for each store to the sidebar.
                         **/
@@ -343,13 +348,7 @@
                             });
                         }
 
-                        // map.on('click', 'csvData', function (e) {
-                        //     createPopup(e)
-                        //     // new mapboxgl.Popup()
-                        //     //     .setLngLat(e.lngLat)
-                        //     //     .setHTML(e.)
-                        //     //     .addTo(map);
-                        // });
+
 
 
                         // function createPopUp(currentFeature) {
