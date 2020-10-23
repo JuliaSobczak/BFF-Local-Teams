@@ -69,6 +69,7 @@
             background-color: #F1823B;
             border-bottom: 1px solid #eee;
             height: 70px;
+            text-align: center;
             line-height: 670px;
             padding: 0 10px;
         }
@@ -191,7 +192,7 @@
 <body>
     <div class='sidebar'>
         <div class='heading'>
-            <h1>   Grassroots Action Teams</h1>
+            <h1> Grassroots Action Teams</h1>
         </div>
         <div id='listings' class='listings'></div>
     </div>
@@ -237,18 +238,24 @@
                     delimiter: ','
                 }, function (err, data) {
                     map.on('load', function () {
+                        map.loadImage(
+                            '/paws.25MP.png',
+                            function (error, image) {
+                                if (error) throw error;
+                                map.addImage('paws', image);
+                            });
 
                         //Add the the layer to the map 
                         map.addLayer({
                             'id': 'csvData',
-                            'type': 'circle',
+                            'type': 'symbol',
                             'source': {
                                 'type': 'geojson',
                                 'data': data
                             },
-                            'paint': {
-                                'circle-radius': 5,
-                                'circle-color': "purple"
+                            'layout': {
+                                'icon-image': 'paws',
+                                'icon-size': 0.10
                             }
                         });
 
@@ -311,7 +318,7 @@
                                     for (var i = 0; i < data.features.length; i++) {
                                         if (this.id === "link-" + data.features[i].properties.id) {
                                             var clickedListing = data.features[i];
-                                            flyToStore(clickedListing);
+                                            flyToLocation(clickedListing);
                                             createPopUp(clickedListing);
                                         }
                                     }
@@ -336,19 +343,26 @@
                             });
                         }
 
+                        // map.on('click', 'csvData', function (e) {
+                        //     createPopup(e)
+                        //     // new mapboxgl.Popup()
+                        //     //     .setLngLat(e.lngLat)
+                        //     //     .setHTML(e.)
+                        //     //     .addTo(map);
+                        // });
 
 
-                        function createPopUp(currentFeature) {
-                            var popUps = document.getElementsByClassName('mapboxgl-popup');
-                            /** Check if there is already a popup on the map and if so, remove it */
-                            if (popUps[0]) popUps[0].remove();
+                        // function createPopUp(currentFeature) {
+                        //     var popUps = document.getElementsByClassName('mapboxgl-popup');
+                        //     /** Check if there is already a popup on the map and if so, remove it */
+                        //     if (popUps[0]) popUps[0].remove();
 
-                            var popup = new mapboxgl.Popup({ closeOnClick: false })
-                                .setLngLat(currentFeature.geometry.coordinates)
-                                .setHTML('<h3>Sweetgreen</h3>' +
-                                    '<h4>' + currentFeature.properties.address + '</h4>')
-                                .addTo(map);
-                        }
+                        //     var popup = new mapboxgl.Popup({ closeOnClick: false })
+                        //         .setLngLat(currentFeature.geometry.coordinates)
+                        //         .setHTML('<h3>Sweetgreen</h3>' +
+                        //             '<h4>' + currentFeature.properties.address + '</h4>')
+                        //         .addTo(map);
+                        // }
 
 
                     });
