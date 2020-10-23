@@ -223,7 +223,7 @@
             $.ajax({
                 type: "GET",
                 //YOUR TURN: Replace with csv export link
-                url: 'https://docs.google.com/spreadsheets/d/1wJtHsBoDY2DMr-rX0jqQzZlSOvj1a55xH8aCksW04Ig/gviz/tq?tqx=out:csv&sheet=Sheet1',
+                url: 'https://docs.google.com/spreadsheets/d/1CA49QC4xgZH6A8WnRbCMggisY4M-MbkM8tFwckQo9kw/gviz/tq?tqx=out:csv&sheet=Pawprints',
                 dataType: "text",
                 success: function (csvData) { makeGeoJSON(csvData); }
             });
@@ -269,7 +269,7 @@
                             if (popups[0]) popups[0].remove();
                             const popup = new mapboxgl.Popup({ closeOnClick: true })
                                 .setLngLat(currentFeature.geometry.coordinates)
-                                .setHTML("<h3>" + currentFeature.properties.Name + "</h3>")
+                                .setHTML("<h3>" + currentFeature.properties.TeamName + "</h3>")
                                 .addTo(map);
                         }
 
@@ -301,7 +301,7 @@
 
                                 /* Add details to the individual listing. */
                                 var details = listing.appendChild(document.createElement('div'));
-                                details.innerHTML = prop.Name;
+                                details.innerHTML = prop.TeamName;
                                 if (prop.FacebookGroup) {
                                     details.innerHTML += ' Facebook: ' + prop.FacebookGroup;
                                 }
